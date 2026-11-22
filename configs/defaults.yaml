@@ -1,0 +1,35 @@
+hydra:
+  run:
+    dir: outputs/${data.name}/${model.name}-${loss.name}-${optim.name}/${now:%Y%m%d-%H:%M:%S-%f}
+
+defaults:
+  - data: road
+  - model: efficientnet_b0
+  - loss: ce
+  - optim: sgd
+  - scheduler: one_cycle
+  - friction: experiments
+  - wandb: my
+  - override hydra/job_logging: custom
+  - _self_
+
+task: cv
+device: cuda:0
+seed: 1
+log_period: 10
+train:
+  clip_grad_norm: True
+  max_epoch: 60
+  resume: False
+  keep_checkpoint_num: 1
+  keep_checkpoint_interval: 0
+braking:
+  speeds: [25.0]   # m/s (90 km/h)
+  g: 9.81
+calibrate:
+  num_bins: 15
+  visualize: False
+test:
+  checkpoint: ""   # tools/test_net.py: path to a best.pth
+wandb:
+  enable: False

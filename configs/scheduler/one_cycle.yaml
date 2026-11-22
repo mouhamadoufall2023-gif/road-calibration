@@ -1,0 +1,15 @@
+# OneCycle, stepped after every batch. total_steps = max_epoch * iters_per_epoch
+# is filled in by the trainer. The LR peaks at pct_start * max_epoch (LRIP t*).
+name: one_cycle
+interval: iter
+max_lr: ${optim.lr}
+pct_start: 0.3
+
+object:
+  _target_: torch.optim.lr_scheduler.OneCycleLR
+  max_lr: ${scheduler.max_lr}
+  pct_start: ${scheduler.pct_start}
+  anneal_strategy: cos
+  cycle_momentum: False
+  div_factor: 25.0
+  final_div_factor: 1e4

@@ -1,0 +1,20 @@
+name: road
+# ImageFolder with train/ val/ test/ and one sub-folder per class
+data_root: ${hydra:runtime.cwd}/data/road_dataset
+batch_size: 256
+
+object:
+  trainval:
+    _target_: calibrate.data.road_dataset.get_train_valid_loader
+    data_dir: ${data.data_root}
+    batch_size: ${data.batch_size}
+    augment: True
+    shuffle: True
+    num_workers: 8
+    pin_memory: True
+  test:
+    _target_: calibrate.data.road_dataset.get_test_loader
+    data_dir: ${data.data_root}
+    batch_size: ${data.batch_size}
+    num_workers: 8
+    pin_memory: True

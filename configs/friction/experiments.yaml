@@ -1,0 +1,8 @@
+# Friction interval [mu_min, mu_max] of each surface class.
+# Values used to produce Tables III and IV of the paper.
+dry: [0.65, 0.80]
+wet: [0.45, 0.75]
+water: [0.40, 0.65]
+fresh_snow: [0.20, 0.35]
+melted_snow: [0.15, 0.30]
+ice: [0.10, 0.25]
